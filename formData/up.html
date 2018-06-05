@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div>
+        <form method="post" class="validForm" id="codeA" name="codeA" enctype="multipart/form-data">
+            身份证正面
+            <input class="change" name="imageFile" type="file" multiple="multiple" onchange="uploada(this)" id="img1"
+            />
+        </form>
+        <input type="hidden" name="filename" value="">
+        <input type="hidden" name="username" value="june" >
+    </div>
+    
+    <script src="jquery.js"></script>
+    <script>
+        function uploada(){
+            var fd = new FormData($("#codeA").get(0));
+            fd.append('category', "qa");
+            console.log(fd);
+            $.ajax({
+                url: 'common/upload.php',
+                type: 'POST',
+                dataType: 'json',
+                data: fd,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+            .done(function (data) {
+                console.log(data);
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+        }
+    </script>
+</body>
+</html>
